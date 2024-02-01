@@ -2,10 +2,9 @@ const { json } = require("express");
 const connection = require("../database");
 
 function crearMaterial(request, response) {
+  const trabajo_id = request.body.id;
   const material = request.body.material;
   const precio = request.body.precio;
-  const trabajo_id = request.body.trabajo_id;
-
   connection.query(
     `INSERT INTO materiales(material, precio, trabajo_id)
     VALUES (?,?,?);`,
@@ -21,8 +20,10 @@ function crearMaterial(request, response) {
   );
 }
 
-function verMateriales(request, response) {
-  connection.query(`SELECT * FROM materiales`, (error, results) => {
+function verMaterialesPorId(request, response) {
+  const id = request.params.id;
+
+  connection.query(`SELECT * FROM materiales WHERE trabajo_id = ?`,[id], (error, results) => {
     if (error) {
       console.error("Error al obtener los materiales:", error);
       response.status(500).json({ error: "Error al obtener los materiales" });
@@ -34,5 +35,5 @@ function verMateriales(request, response) {
 
 module.exports = {
   crearMaterial,
-  verMateriales,
+  verMaterialesPorId,
 };

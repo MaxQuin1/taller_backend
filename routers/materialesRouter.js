@@ -3,6 +3,6 @@ const materialesControllers = require('../controllers/materialesControllers')
 const router = express.Router();
 
 router.post("/", materialesControllers.crearMaterial);
-router.put("/:id", materialesControllers.verMateriales);
+router.get("/:id", materialesControllers.verMaterialesPorId);
 
 module.exports = router

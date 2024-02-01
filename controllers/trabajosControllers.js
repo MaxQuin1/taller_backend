@@ -23,7 +23,8 @@ function crearTrabajo(request, response) {
 
 function verTrabajos(request, response) {
   connection.query(
-    `SELECT trabajos.nombre,
+    `SELECT trabajos.id_trabajo,
+    trabajos.nombre,
     trabajos.descripcion,
     trabajos.horas,
     trabajos.estatus,
@@ -64,20 +65,20 @@ function verTrabajosPorId(request, response) {
 function editarTrabajo(request, response) {
   const id = request.params.id;
   const nombre = request.body.nombre;
-  const correo = request.body.correo;
-  const contraseña = request.body.contraseña;
+  const descripcion = request.body.descripcion;
+  const horas = request.body.horas;
 
   connection.query(
-    `UPDATE mecanicos
-     SET nombre = ?, correo = ?, contraseña = ?
-     WHERE id_mecanico = ?`,
-    [nombre, correo, contraseña, id],
+    `UPDATE trabajos
+     SET nombre = ?, descripcion = ?, horas = horas + ?
+     WHERE id_trabajo = ?`,
+    [nombre, descripcion, horas, id],
     (error, results) => {
       if (error) {
-        console.error("Error al actualizar al mecanico:", error);
+        console.error("Error al actualizar el trabajo:", error);
         response.status(500).json({ error: "Error" });
       } else {
-        console.log("Mecanico actualizado:", results);
+        console.log("Trabajo actualizado:", results);
         response.status(200).json(results);
       }
     }
@@ -88,4 +89,5 @@ module.exports = {
   crearTrabajo,
   verTrabajos,
   verTrabajosPorId,
+  editarTrabajo,
 };
