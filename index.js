@@ -3,6 +3,8 @@ const cors = require("cors");
 
 const login = require('./routers/loginRouter')
 const trabajos = require('./routers/trabajosRouter')
+const trabajosEstatus = require('./routers/trabajosEstatusRouter')
+const tiposTrabajo = require('./routers/tipoTrabajoRouter')
 const mecanicos = require('./routers/mecanicosRouter')
 const materiales = require('./routers/materialesRouter')
 
@@ -12,6 +14,8 @@ app.use(cors());
 
 app.use("/login", login);
 app.use("/trabajos", trabajos);
+app.use("/trabajosEstatus", trabajosEstatus);
+app.use("/tipoTrabajo", tiposTrabajo);
 app.use("/mecanicos", mecanicos);
 app.use("/materiales", materiales);
 
