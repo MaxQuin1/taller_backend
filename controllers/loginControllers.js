@@ -6,25 +6,33 @@ function login(request, response) {
   const contraseña = request.body.contraseña;
 
   connection.query(
-    `SELECT * FROM mecanicos WHERE correo = ? AND contraseña = ?`,
+    `SELECT * FROM usuarios WHERE correo = ? AND contraseña = ?`,
     [correo, contraseña],
     (error, result) => {
+      if (error) {
+        console.error(error);
+        response.status(500).json({
+          respuesta: "Error en la base de datos",
+          status: false,
+        });
+        return;
+      }
       if (result.length === 0) {
         response.status(200).json({
-          respuesta: "no se encontro usuario",
+          respuesta: "No se encontró usuario",
           status: false,
         });
       } else {
-        const userIndex = result.findIndex(user => user !== null && user !== undefined);
-        
-        if (userIndex !== -1) {
+        const user = result[0];
+        if (user) {
           response.status(200).json({
-            respuesta: "usuario encontrado",
+            respuesta: "Usuario encontrado",
             status: true,
-          })
+            tipo_usuario: user.tipo_usuario,
+          });
         } else {
           response.status(200).json({
-            respuesta: "no se encontro usuario válido",
+            respuesta: "No se encontró un usuario válido",
             status: false,
           });
         }
