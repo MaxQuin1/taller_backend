@@ -4,10 +4,11 @@ const connection = require("../database");
 function login(request, response) {
   const correo = request.body.correo;
   const contraseña = request.body.contraseña;
+  const codigo = request.body.codigo;
 
   connection.query(
-    `SELECT * FROM usuarios WHERE correo = ? AND contraseña = ?`,
-    [correo, contraseña],
+    `SELECT * FROM usuarios WHERE correo = ? AND contraseña = ? AND codigo = ?`,
+    [correo, contraseña, codigo],
     (error, result) => {
       if (error) {
         console.error(error);
