@@ -5,11 +5,12 @@ function crearMecanico(request, response) {
   const nombre = request.body.nombre;
   const correo = request.body.correo;
   const contraseña = request.body.contraseña;
+  const codigo = request.body.codigo;
 
   connection.query(
-    `INSERT INTO mecanicos(nombre, correo, contraseña)
-    VALUES (?,?,?);`,
-    [nombre, correo, contraseña],
+    `INSERT INTO mecanicos(nombre, correo, contraseña, codigo)
+    VALUES (?,?,?,?);`,
+    [nombre, correo, contraseña, codigo],
     (error, results) => {
       if (error) {
         console.error("Error al ejecutar:", error);
