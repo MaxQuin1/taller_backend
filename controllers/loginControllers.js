@@ -1,4 +1,3 @@
-const { json } = require("express");
 const connection = require("../database");
 
 function login(request, response) {
