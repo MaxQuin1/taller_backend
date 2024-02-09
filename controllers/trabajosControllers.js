@@ -5,11 +5,12 @@ function crearTrabajo(request, response) {
   const nombre = request.body.nombre;
   const descripcion = request.body.descripcion;
   const trabajo = request.body.trabajo;
+  const userId = request.body.idUsuario;
 
   connection.query(
-    `INSERT INTO trabajos(nombre, descripcion, tipo_trabajo_id)
-    VALUES (?,?,?);`,
-    [nombre, descripcion, trabajo],
+    `INSERT INTO trabajos(nombre, descripcion, tipo_trabajo_id, usuario_id)
+    VALUES (?,?,?,?);`,
+    [nombre, descripcion, trabajo,userId],
     (error, results) => {
       if (error) {
         console.error("Error al ejecutar:", error);

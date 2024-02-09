@@ -30,6 +30,8 @@ function login(request, response) {
             respuesta: "Usuario encontrado",
             status: true,
             tipo_usuario: user.tipo_usuario,
+            nombre: user.nombre,
+            id: user.id_usuario,
           });
         } else {
           response.status(200).json({
